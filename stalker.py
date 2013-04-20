@@ -6,7 +6,7 @@
 import cgitb
 cgitb.enable()
 
-from rastFunctions import Candidate
+from functions import Candidate
 
 dilma = Candidate('Dilma Rousseff', 'dilmabr', '112476482098688',
                   'http://www.dilma.com.br/',
