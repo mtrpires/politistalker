@@ -91,7 +91,7 @@ class Candidate(object):
         returns: the number of followers of a given user.
         """
 
-        return getTwitterDump(self)[u'followers_count']
+        return getTwitterDump(self, 'u')[u'followers_count']
 
     def getNumTweets(self):
         """
@@ -101,7 +101,7 @@ class Candidate(object):
         returns: the number (int) of tweets of a given user.
         """
 
-        return getTwitterDump(self)[u'statuses_count']
+        return getTwitterDump(self, 'u')[u'statuses_count']
 
     def getLatestTweets(self):
         """
@@ -110,8 +110,12 @@ class Candidate(object):
 
         returns: list of tweets. Each index is a tweet.
         """
-
-        return getTwitterDump(self)
+        tweets = []
+        tweetsList = getTwitterDump(self, 's')
+        for i in tweetsList:
+            tweets.append(i[u'text'].encode('utf_8'))
+            
+        return tweets
 
     def getNumLikes(self):
         """
@@ -153,7 +157,7 @@ class Candidate(object):
         return self.getName()
 
 
-def getTwitterDump(candidate):
+def getTwitterDump(candidate, kind):
     """
     Gets the JSON string for 'candidate.getTwitter()' and defined
     type (status or general information) and converts
@@ -166,12 +170,17 @@ def getTwitterDump(candidate):
     respective values.
     """
 
-    twitterJSON = \
-    "https://api.twitter.com/1/statuses/user_timeline.json?\
-    include_rts=true&screen_name=%s"\
-    % (candidate.getTwitter())
+    if kind == 's':
+        twitterJSON = \
+        "https://api.twitter.com/1/statuses/user_timeline.json?\
+        include_rts=true&screen_name=%s"\
+        % candidate.getTwitter()
+    elif kind == 'u':
+        twitterJSON = \
+        "https://api.twitter.com/1/users/show.json?screen_name=%s"\
+        % candidate.getTwitter()
 
-    dump = json.loads(urllib.urlopen(twitterJSON).readline())
+    dump = json.loads(urllib.urlopen(twitterJSON).read())
     return dump
 
 

@@ -32,30 +32,30 @@ print
 print "<html>"
 print "<body><p>"
 
-for i in range(len(candidatos)):
+for nome in range(len(candidatos)):
     
-    print "<h1>", candidatos[i].getName(), "</h1><h2>", candidatos[i].getNumFollowers(), "</h2> seguidores no twitter. </p><p>"
-    print "Website:", candidatos[i].getWebsite(), "</p><p>"
-    print "Wikipedia:", candidatos[i].getWiki(), "</p>"
-    print "<h2>", candidatos[i].getNumTweets(), "</h2> tweets. </p><p>"
-    print "<h2>", candidatos[i].getNumLikes(), "</h2> seguidores no Facebook. </p><p>"
+    print "<h1>", candidatos[nome].getName(), "</h1><h2>", candidatos[nome].getNumFollowers(), "</h2> seguidores no twitter. </p><p>"
+    print "Website:", candidatos[nome].getWebsite(), "</p><p>"
+    print "Wikipedia:", candidatos[nome].getWiki(), "</p>"
+    print "<h2>", candidatos[nome].getNumTweets(), "</h2> tweets. </p><p>"
+    print "<h2>", candidatos[nome].getNumLikes(), "</h2> seguidores no Facebook. </p><p>"
     print
     print
     print "Últimos tweets: </p><p>"
 
-    if candidatos[i].getNumTweets() == 0:
+    if candidatos[nome].getNumTweets() == 0:
         print "Nenhum Tweet!</p><p>"
     else: 
-        tweets = candidatos[i].getLatestTweets()
-        for j in range(3):
-            print "<h3>", tweets[j][u'text'].encode('utf_8'),"</h3></p><p>"
-            
+        tweets = candidatos[nome].getLatestTweets()
+        for i in range(3):
+            print "<h3>", tweets[i],"</h3></p><p>"
+
     print
-    print "Últimas reportagens sobre", candidatos[i], "</p>"
+    print "Últimas reportagens sobre", candidatos[nome], "</p>"
     print
-    news = candidatos[i].getStories()
-    for k in range(3):
-        print news[k].encode('utf_8')
+    news = candidatos[nome].getStories()
+    for j in range(3):
+        print news[j].encode('utf_8')
 
 print "</p></body>"
 print "</html>"
