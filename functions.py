@@ -105,10 +105,11 @@ class Candidate(object):
 
     def getLatestTweets(self):
         """
-        Uses the helper function getTwitterDump to extract the X
+        Uses the helper function getTwitterDump to extract the
         latest tweets from a given user.
 
-        returns: list of tweets. Each index is a tweet.
+        returns: list of tweets, UTF-8 encoded. 
+        Each index of the list is a tweet.
         """
         tweets = []
         tweetsList = getTwitterDump(self, 's')
@@ -121,6 +122,10 @@ class Candidate(object):
         """
         Uses the helper function getFacebookDump to extract
         the number of likes from the JSON dictionary.
+        
+        If the candidate doesn't have a public profile,
+        he/she won't have a "likes" number, producing a "key error". 
+        Instead, an FQL query is made to get the number of friends.
 
         returns: the number (int) of likes of a given Facebook page.
         """
@@ -148,7 +153,7 @@ class Candidate(object):
         soupResults = BeautifulSoup(urllib.urlopen(results).read())
         resultsList = soupResults.findAll('p')
 
-        return resultsList[2:5]
+        return resultsList[2:5].encode('utf_8')
 
     def __repr__(self):
         """
