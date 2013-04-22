@@ -55,7 +55,7 @@ for nome in range(len(candidatos)):
     print
     news = candidatos[nome].getStories()
     for j in range(3):
-        print news[j].encode('utf_8')
+        print news[j]
 
 print "</p></body>"
 print "</html>"

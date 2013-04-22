@@ -147,13 +147,18 @@ class Candidate(object):
 
         returns: list with HTML for stories.
         """
-
+        news = []
         results = \
         "http://search.folha.com.br/search?q=%s&site=online" % self.name
         soupResults = BeautifulSoup(urllib.urlopen(results).read())
         resultsList = soupResults.findAll('p')
+        
+        # Encode to UTF-8 each piece of news
+        for noticias in resultsList[2:5]:
+            noticias.encode('utf_8')
+            news.append(noticias)
 
-        return resultsList[2:5].encode('utf_8')
+        return news
 
     def __repr__(self):
         """
